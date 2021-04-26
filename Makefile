@@ -4,7 +4,7 @@
 # Compiler flags
 #
 CC = g++
-CPPFLAGS = -std=gnu++17 -g #-Wall -Werror -Wextra -Wshadow
+CPPFLAGS = -std=gnu++17 -g -Wall -Werror -Wextra -Wshadow -pedantic
 
 #
 # Project files
