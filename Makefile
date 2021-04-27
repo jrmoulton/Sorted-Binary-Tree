@@ -12,7 +12,7 @@ CPPFLAGS = -std=gnu++17 -g -Wall -Werror -Wextra -Wshadow -pedantic
 ftype = cpp
 SRCDIR = src
 SRCS = $(wildcard $(SRCDIR)/*.$(ftype))
-EXE  = main
+EXE  = main.exe
 # ifeq ($(OS),Windows_NT) 
 # 	EXE = $(EXE).exe 
 # endif
@@ -30,7 +30,8 @@ DBGCFLAGS = -g -O0 -DDEBUG
 # Release build settings
 #
 RELDIR = target/release
-RELEXE = $(RELDIR)/$(EXE)
+#RELEXE = $(RELDIR)/$(EXE)
+RELEXE = $(EXE)
 RELOBJS = $(patsubst $(SRCDIR)/%.$(ftype), $(RELDIR)/%.o, $(SRCS))
 RELCFLAGS = -Og -DNDEBUG
 

@@ -2,14 +2,18 @@
 #include <fstream>
 #include <iostream>
 
+// Class to hold the node type
 template <typename T>
 class Node {
    public:
+    // Node constructor
     Node(T val) {
         m_left = nullptr;
         m_right = nullptr;
         m_val = val;
     }
+
+    // getter and setter functions
     inline T get_val() const { return m_val; }
     inline void set_val(T val) { m_val = val; }
     inline Node *get_left() const { return m_left; }
@@ -27,27 +31,37 @@ template <typename T>
 class BinaryTree {
    public:
     BinaryTree() { head = nullptr; };
+
+    // The base add method
     void a(int val) {
         Node<T> *new_node = new Node<T>(val);
         if (head == nullptr) {
             head = new_node;
         } else {
+            // If head is not null this function just calls the recursive add
+            // method
             rec_a(head, new_node);
         }
     };
+
+    // The recursive add method
     void rec_a(Node<T> *curr, Node<T> *new_node) {
         if (new_node->get_val() > curr->get_val()) {
+            // Break condition when right is null
             if (curr->get_right() == nullptr) {
                 curr->set_right(new_node);
                 return;
             } else {
+                // else recurse
                 return rec_a(curr->get_right(), new_node);
             }
         } else if (new_node->get_val() < curr->get_val()) {
             if (curr->get_left() == nullptr) {
+                // Break condition when left is null
                 curr->set_left(new_node);
                 return;
             } else {
+                // else recurse
                 return rec_a(curr->get_left(), new_node);
             }
         } else {
@@ -55,6 +69,8 @@ class BinaryTree {
             return;
         }
     }
+
+    // The delete method
     void d(T val) {
         // case that the tree is empty
         if (head == nullptr) {
@@ -169,20 +185,30 @@ class BinaryTree {
         delete del_tar;
         return;
     }
-    void write() {
 
-        Node<T> *temp;
+    // The write method
+    void write(char *arg) {
         if (head == nullptr) {
             return;
         }
+        Node<T> *temp;
+        std::ofstream my_file;
+        my_file.open(arg);
+        if (!my_file.is_open()) {
+            throw std::runtime_error("\nThe output file could not be opened");
+        }
         while (head != nullptr) {
             temp = rec_find_small(head, nullptr, true);
-            std::cout << std::log10(temp->get_val()) << std::endl;
+            my_file << std::log10(temp->get_val()) << std::endl;
             delete temp;
         }
     }
+
+    // The find smallest value method
     Node<T> *rec_find_small(Node<T> *curr, Node<T> *parent, bool left) {
+        // When the current is a leaf node
         if (curr->get_right() == nullptr && curr->get_left() == nullptr) {
+            // Remote the target from parents children
             if (parent != nullptr) {
                 if (left) {
                     parent->set_left(nullptr);
@@ -193,7 +219,7 @@ class BinaryTree {
                 head = nullptr;
             }
             return curr;
-        } else {
+        } else {  // else recurse
             if (curr->get_left() == nullptr) {
                 return rec_find_small(curr->get_right(), curr, false);
             } else {
@@ -206,11 +232,25 @@ class BinaryTree {
     Node<T> *head;
 };
 
-int main() {
-    std::ifstream is("input.txt");
+int main(int argc, char **argv) {
+    // Assert that the number of command line arguments is correct
+    if (argc != 3) {
+        throw std::runtime_error(
+            "\nYou must provide two command line args. The input file name and "
+            "the output file name");
+    }
+    // open the input file
+    std::ifstream is(argv[1]);
+    if (!is.is_open()) {
+        throw std::runtime_error("\nThe input file could not be opened");
+    }
+
+    // initialize variables
     BinaryTree<int> tree;
     int val;
     char instruction;
+
+    // Read in values
     while (is >> instruction >> val) {
         if (instruction == 'a') {
             tree.a(val);
@@ -218,5 +258,7 @@ int main() {
             tree.d(val);
         }
     }
-    tree.write();
+
+    // Write values to file
+    tree.write(argv[2]);
 }
