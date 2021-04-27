@@ -1,6 +1,6 @@
+#include <cmath>
 #include <fstream>
 #include <iostream>
-#include <vector>
 
 template <typename T>
 class Node {
@@ -169,14 +169,15 @@ class BinaryTree {
         delete del_tar;
         return;
     }
-    void print() {
+    void write() {
+
         Node<T> *temp;
         if (head == nullptr) {
             return;
         }
         while (head != nullptr) {
             temp = rec_find_small(head, nullptr, true);
-            std::cout << temp->get_val() << std::endl;
+            std::cout << std::log10(temp->get_val()) << std::endl;
             delete temp;
         }
     }
@@ -217,5 +218,5 @@ int main() {
             tree.d(val);
         }
     }
-    tree.print();
+    tree.write();
 }
