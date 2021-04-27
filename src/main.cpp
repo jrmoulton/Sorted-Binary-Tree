@@ -115,21 +115,11 @@ class BinaryTree {
         // Rep target will not be null
         while (rep_tar->get_left() != nullptr ||
                rep_tar->get_right() != nullptr) {  // while not a leaf node
+            rep_parent = rep_tar;
+            rep_tar = rep_tar->get_left();
             if (rep_tar->get_left() == nullptr &&
-                rep_tar->get_right() != nullptr) {
-                rep_parent = rep_tar;
-                rep_tar = rep_tar->get_right();
-                if (rep_tar->get_left() == nullptr &&
-                    rep_tar->get_right() == nullptr) {
-                    rep_parent->set_right(nullptr);
-                }
-            } else {
-                rep_parent = rep_tar;
-                rep_tar = rep_tar->get_left();
-                if (rep_tar->get_left() == nullptr &&
-                    rep_tar->get_right() == nullptr) {
-                    rep_parent->set_left(nullptr);
-                }
+                rep_tar->get_right() == nullptr) {
+                rep_parent->set_left(nullptr);
             }
         }
 
