@@ -3,7 +3,7 @@
 #
 # Compiler flags
 #
-CC = g++
+CC = clang++
 CPPFLAGS = -std=gnu++17 -g -Wall -Werror -Wextra -Wshadow -pedantic
 
 #
