@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <vector>
 
 template <typename T>
 class Node {
@@ -9,12 +10,12 @@ class Node {
         m_right = nullptr;
         m_val = val;
     }
-    T get_val() const { return m_val; }
-    void set_val(T val) { m_val = val; }
-    Node *get_left() const { return m_left; }
-    void set_left(Node *left) { m_left = left; }
-    Node *get_right() const { return m_right; }
-    void set_right(Node *right) { m_right = right; }
+    inline T get_val() const { return m_val; }
+    inline void set_val(T val) { m_val = val; }
+    inline Node *get_left() const { return m_left; }
+    inline void set_left(Node *left) { m_left = left; }
+    inline Node *get_right() const { return m_right; }
+    inline void set_right(Node *right) { m_right = right; }
 
    private:
     T m_val;
@@ -115,7 +116,7 @@ class BinaryTree {
         while (rep_tar->get_left() != nullptr ||
                rep_tar->get_right() != nullptr) {  // while not a leaf node
             if (rep_tar->get_left() == nullptr &&
-                rep_tar->get_right() == nullptr) {
+                rep_tar->get_right() != nullptr) {
                 rep_parent = rep_tar;
                 rep_tar = rep_tar->get_right();
                 if (rep_tar->get_left() == nullptr &&
@@ -165,9 +166,39 @@ class BinaryTree {
         if (del_tar->get_left() != rep_tar) {
             rep_tar->set_left(del_tar->get_left());
         }
-        rep_parent->set_left(nullptr);
         delete del_tar;
         return;
+    }
+    void print() {
+        Node<T> *temp;
+        if (head == nullptr) {
+            return;
+        }
+        while (head != nullptr) {
+            temp = rec_find_small(head, nullptr, true);
+            std::cout << temp->get_val() << std::endl;
+            delete temp;
+        }
+    }
+    Node<T> *rec_find_small(Node<T> *curr, Node<T> *parent, bool left) {
+        if (curr->get_right() == nullptr && curr->get_left() == nullptr) {
+            if (parent != nullptr) {
+                if (left) {
+                    parent->set_left(nullptr);
+                } else {
+                    parent->set_right(nullptr);
+                }
+            } else {
+                head = nullptr;
+            }
+            return curr;
+        } else {
+            if (curr->get_left() == nullptr) {
+                return rec_find_small(curr->get_right(), curr, false);
+            } else {
+                return rec_find_small(curr->get_left(), curr, true);
+            }
+        }
     }
 
    private:
@@ -186,4 +217,5 @@ int main() {
             tree.d(val);
         }
     }
+    tree.print();
 }
