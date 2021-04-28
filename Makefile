@@ -12,7 +12,7 @@ CPPFLAGS = -std=gnu++17 -g -Wall -Werror -Wextra -Wshadow -pedantic
 ftype = cpp
 SRCDIR = src
 SRCS = $(wildcard $(SRCDIR)/*.$(ftype))
-EXE  = main.exe
+EXE  = LogTable.exe
 # ifeq ($(OS),Windows_NT) 
 # 	EXE = $(EXE).exe 
 # endif
