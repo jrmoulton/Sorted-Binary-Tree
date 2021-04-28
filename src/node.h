@@ -2,7 +2,10 @@
 #ifndef NODE_H
 #define NODE_H
 
-// Class to hold the node type
+/* Class to hold the node type
+Node constructor
+getter and setter functions
+*/
 template <typename T>
 class Node {
    public:

@@ -5,6 +5,14 @@
 #include "binary_tree.h"
 #include "node.h"
 
+/* Main
+Assert that the number of command line arguments is correct
+open the input file
+initialize variables
+Read in values
+Write values to file
+*/
+
 int main(int argc, char **argv) {
     // Assert that the number of command line arguments is correct
     if (argc != 3) {
