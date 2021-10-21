@@ -1,4 +1,5 @@
 target/
+*.exe
 *old*
 *.zip
 comp_ver/
