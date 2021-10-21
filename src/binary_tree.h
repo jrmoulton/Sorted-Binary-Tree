@@ -2,6 +2,9 @@
 #ifndef BINARY_TREE_H
 #define BINARY_TREE_H
 #include "node.h"
+#include <cmath>
+#include <iomanip>
+#include <fstream>
 
 template <typename T>
 class BinaryTree {
